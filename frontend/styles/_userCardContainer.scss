@@ -1,0 +1,67 @@
+.UserCardContainer {
+    display: flex;
+    width: calc(78% - 200px);
+    flex-direction: column;
+    height: fit-content;
+
+    & button {
+        align-self: flex-end;
+        margin-top: 24px;
+    }
+
+    & #bannerUser {
+        width: 100%;
+        height: 220px;
+        background-color: red;
+    }
+
+    & #profilePicUser {
+        width: 112px;
+        height: 112px;
+        background-color: white;
+        border-radius: 100%;
+        margin-left: -24px;
+        outline: 4px solid #21242b;
+        margin-top: -112px;
+    }
+
+    & .userInformation {
+        display: flex;
+        width: 80%;
+        margin: 0 auto;
+        flex-direction: column;
+
+        & h1 {
+            font-size: 30px;
+            margin-top: 12px;
+        }
+
+        & h4 {
+            margin-top: 4px;
+            font-size: 16px;
+            color: #e5e2e9d5;
+            font-weight: 200;
+            margin-bottom: 42px;
+        }
+
+        & p {
+            color: #c6cad1;
+            font-size: 14px;
+        }
+    }
+    & .followInformation {
+        display: flex;
+        margin-top: 12px;
+        & p {
+            font-size: 17px;
+            margin-right: 36px;
+            & b {
+                color: #f1eff5;
+            }
+        }
+    }
+}
+
+.sideMenuPositioned {
+    padding-left: 233px;
+}
