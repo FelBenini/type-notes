@@ -5,15 +5,24 @@ import Auth from "./controllers/Auth";
 import jwt, {Secret} from 'jsonwebtoken'
 import mongoose from "mongoose";
 import UserController from "./controllers/UserInformation";
+import path from "path";
+import multer from 'multer';
 
 dotenv.config()
 const PORT = process.env.PORT;
 export const privateKey = process.env.PRIVATE_KEY as Secret
 const dbString = process.env.DB_STRING as string
 
+const uploadMiddleware = multer({dest: 'images/',
+limits: { fieldSize: 25 * 10000 * 10000 }})
+
 const app: Express = express()
 app.use(cors())
 app.use(express.json())
+app.use(
+    '/images',
+     express.static(path.join(__dirname, './images'))
+   );
 
 mongoose.connect(dbString)
 mongoose.connection.once('open', () => {console.log('Connected to database')})
@@ -33,6 +42,7 @@ app.post('/login', Auth.login)
 app.get('/session', middlewareAuth, Auth.session)
 app.post('/register', Auth.register)
 app.get('/user/:username', UserController.getUserInfo)
+app.put('/profilepic/:name', middlewareAuth, UserController.changeProfilePic)
 
 app.listen(PORT, () => {
     console.log(`Server initialized at https://localhost:${PORT}`)
