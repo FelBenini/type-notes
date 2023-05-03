@@ -40,11 +40,29 @@ export default class PostController {
             .limit(limit as number * 1)
             .skip((page as number) * limit as number)
             .populate('postedBy', '-_id -password -email -__v')
+            .populate('likedBy', '-_id -password -email -__v')
             .sort({createdAt: -1})
             .exec()
 
             const count = await postModel.find({postedBy: userId}).count()
             res.status(200).json({postsCount: count, posts: posts})
         }
+    }
+
+    static likeAPost = async (req: Request, res: Response) => {
+        const {id} = req.params
+        const username = decodeJwtUsername(req.headers.authorization as string)
+        const user = await userModel.findOne({username: username})
+        const userId = user?._id
+        if (userId) {
+            const post = await postModel.findByIdAndUpdate(id, {$inc: {likesCount: 1}, "$push": {"likedBy": userId}})
+            if (post) {
+                res.json(post)
+                return
+            }
+        }
+
+        res.status(404).json()
+        
     }
 }
