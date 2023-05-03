@@ -4,6 +4,7 @@ import cors from 'cors'
 import Auth from "./controllers/Auth";
 import jwt, {Secret} from 'jsonwebtoken'
 import mongoose from "mongoose";
+import PostController from "./controllers/PostController";
 import UserController from "./controllers/UserInformation";
 import path from "path";
 import multer from 'multer';
@@ -43,6 +44,8 @@ app.get('/session', middlewareAuth, Auth.session)
 app.post('/register', Auth.register)
 app.get('/user/:username', UserController.getUserInfo)
 app.put('/profilepic/:name', middlewareAuth, UserController.changeProfilePic)
+app.post('/newpost', middlewareAuth, PostController.creatPost)
+app.get('/post/:id', PostController.getSinglePost)
 
 app.listen(PORT, () => {
     console.log(`Server initialized at https://localhost:${PORT}`)

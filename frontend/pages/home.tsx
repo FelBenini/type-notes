@@ -14,7 +14,9 @@ const Protected = ({session}: any) => {
   return (
     <>
       <SideMenu/>
-      {JSON.stringify(session)}
+      <section className='sideMenuPositioned'>
+        {JSON.stringify(session)}
+      </section>
     </>
   )
 }
