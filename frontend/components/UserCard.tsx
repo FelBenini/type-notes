@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Open_Sans } from 'next/font/google';
 import {FaRegCalendar, FaUserPlus} from 'react-icons/fa'
 import { Button } from '@mui/material';
+import UserPosts from './UserPosts';
 
 const openSans = Open_Sans({ subsets: ['latin'], weight: '400' })
 
@@ -68,6 +69,7 @@ const UserCard = ({ username }: { username: string | string[] | undefined }) => 
                         <p><b><>{userInfo?.followingCount}</></b> following</p>
                     </span>
                 </div>
+                <UserPosts username={username} />
             </div>
         )
     } else {

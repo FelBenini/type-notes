@@ -1,5 +1,6 @@
 @use '_userCardContainer.scss';
 @use '_login.scss';
+@use '_postsSection.scss';
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
 body {
@@ -14,6 +15,7 @@ body {
 header {
   height: 64px;
   background-color: #353842;
+  z-index: 99;
   width: calc(100% - 30px);
   padding: 0px 15px;
   position: fixed;

@@ -1,0 +1,67 @@
+#postsSection {
+    width: 85%;
+    margin: 32px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    & .postCard {
+        width: calc(100% - 20px);
+        padding: 12px 20px;
+        background-color: #30353e;
+        margin-top: 24px;
+        border-radius: 24px;
+        margin-bottom: 0px;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        & p {
+            width: 96%;
+            margin: 0 auto;
+            margin-top: 24px;
+        }
+        & .profilePic {
+            width: 44px;
+            height: 44px;
+            background-color: aliceblue;
+            border-radius: 100%;
+        }
+        & .userTip {
+            display: flex;
+            height: 48px;
+            align-items: center;
+            & h4 {
+                margin-left: 12px;
+            }
+            & p {
+                margin: 0;
+                margin-left: 8px;
+                font-size: 14px;
+                color: #c6cad1;
+                margin-top: 0px;
+                width: fit-content;
+            }
+        }
+        & .postToolbar {
+            display: flex;
+            width: 100%;
+            justify-content: space-around;
+            align-items: center;
+            height: 48px;
+            margin: auto 0;
+            margin-top: 12px;
+            & .spanSection {
+                display: flex;
+                align-items: center;
+                height: 100%;
+                transition: linear 0.1s;
+                & h5 {
+                    margin-top: 12px;
+                    margin-left: 4px;
+                    font-weight: 300;
+                    font-size: 16px;
+                }
+            }
+            
+        }
+    }
+}
