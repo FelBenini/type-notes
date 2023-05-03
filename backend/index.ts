@@ -46,6 +46,7 @@ app.get('/user/:username', UserController.getUserInfo)
 app.put('/profilepic/:name', middlewareAuth, UserController.changeProfilePic)
 app.post('/newpost', middlewareAuth, PostController.creatPost)
 app.get('/post/:id', PostController.getSinglePost)
+app.get('/user/post/:username', PostController.getPostByUser)
 
 app.listen(PORT, () => {
     console.log(`Server initialized at https://localhost:${PORT}`)

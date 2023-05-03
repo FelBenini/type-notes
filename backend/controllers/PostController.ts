@@ -21,6 +21,20 @@ export default class PostController {
         const post = await postModel.findById(id)
         .populate('postedBy', '-_id -password -email -__v')
         .exec()
-        res.status(200).json(post)
+        if (post) {
+          res.status(200).json(post)
+          return
+        }
+        res.status(404).json({'message': 'Post was not found'})        
+    }
+
+    static getPostByUser = async (req: Request, res: Response) => {
+        const {username} = req.params
+        const user = await userModel.findOne({username: username})
+        const userId = user?._id
+        if (userId) {
+            const posts = await postModel.find({postedBy: userId}).populate('postedBy', '-_id -password -email -__v').exec()
+            res.status(200).json(posts)
+        }
     }
 }
