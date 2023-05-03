@@ -1,6 +1,6 @@
 .UserCardContainer {
     display: flex;
-    width: calc(78% - 200px);
+    width: calc(82% - 200px);
     flex-direction: column;
     height: fit-content;
 
@@ -62,4 +62,10 @@
 
 .sideMenuPositioned {
     padding-left: 233px;
+}
+
+@media only screen and (max-width: 1050px) {
+    .UserCardContainer {
+        width: calc(100% - 200px);
+    }
 }
