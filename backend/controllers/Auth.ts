@@ -7,7 +7,6 @@ import bcrypt from 'bcryptjs'
 
 const salt = bcrypt.genSaltSync(10)
 dotenv.config()
-//r
 
 const privateKey: Secret = process.env.PRIVATE_KEY as Secret
 
@@ -52,6 +51,6 @@ export default class Auth {
             email: email
         })
         newUser.save()
-        res.status(200).json({username, password, email})
+        res.status(200).json({newUser})
     }
 }
