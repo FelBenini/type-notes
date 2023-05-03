@@ -7,7 +7,7 @@ import mongoose from "mongoose";
 
 dotenv.config()
 const PORT = process.env.PORT;
-const privateKey = process.env.PRIVATE_KEY as Secret
+export const privateKey = process.env.PRIVATE_KEY as Secret
 const dbString = process.env.DB_STRING as string
 
 const app: Express = express()

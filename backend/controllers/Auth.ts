@@ -1,14 +1,24 @@
 import { Request, Response } from "express"
-import jwt, { Secret } from "jsonwebtoken"
+import jwt, { JwtPayload } from "jsonwebtoken"
 import dotenv from 'dotenv'
 import {validate} from 'email-validator'
 import userModel from "../models/UserModel"
+import {privateKey} from '../index'
 import bcrypt from 'bcryptjs'
 
 const salt = bcrypt.genSaltSync(10)
 dotenv.config()
 
-const privateKey: Secret = process.env.PRIVATE_KEY as Secret
+export interface IPayLoadJwt extends JwtPayload {
+    username: string,
+    iat: number,
+    exp: number
+}
+
+export function decodeJwtUsername(token: string) {
+    const decoded: IPayLoadJwt = jwt.verify(token as string, privateKey) as IPayLoadJwt
+    return decoded.username
+}
 
 export default class Auth {
     static login = async (req: Request, res: Response) => {
