@@ -19,26 +19,47 @@ export interface IUserInfo {
     createdAt: string;
 }
 
-const UserCard = ({ username }: { username: string }) => {
+const UserCard = ({ username }: { username: string | string[] | undefined }) => {
     const [userInfo, setUserInfo] = useState<IUserInfo | undefined>()
     const [loading, setLoading] = useState(true)
-    const fetchData = async (username: string) => {
+    const fetchData = async (username: string | string[] | undefined) => {
         const { data } = await axios.get(`http://localhost:4000/user/${username}`)
         setUserInfo(data)
         setLoading(false)
     }
     useEffect(() => {
+        if (!username) {
+            return
+        }
         fetchData(username)
-    }, [])
+        return
+    }, [username])
 
     if (!loading) {
+        const getUserPfpStyle = (pic: string, type: string) => {
+            let picture
+            if (pic === '' && type === 'pfp') {
+                picture = 'url(/img/defaultPfp.png)'
+            } else if (pic === '' && type === 'banner'){
+                picture = 'url(/img/defaultBanner.png)'
+            } else {
+                picture = `url(${pic})`
+            }
+            let style = {
+                backgroundImage: `${picture}`,
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center center'
+            }
+            return style
+        }
         const createdAt = new Date(userInfo?.createdAt as string)
         return (
             <div className={`UserCardContainer ${openSans.className} sideMenuPositioned`}>
-                <div id='bannerUser'></div>
+                <div id='bannerUser' style={getUserPfpStyle(userInfo?.bannerPic as string, 'banner')}></div>
                 <div className='userInformation'>
                     <Button startIcon={<FaUserPlus />} color='secondary' sx={{padding: '12px 24px', borderRadius: '60px'}} variant="contained">Follow</Button>
-                    <span id='profilePicUser'></span>
+                    <span id='profilePicUser' style={getUserPfpStyle(userInfo?.profilePic as string, 'pfp')}></span>
                     <h1>{userInfo?.displayName}</h1>
                     <h4>@{userInfo?.username}</h4>
                     <p><FaRegCalendar /> Member since {createdAt.toLocaleString('en-US', { month: 'long' })} {createdAt.getFullYear()}</p>
