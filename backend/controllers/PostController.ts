@@ -33,7 +33,7 @@ export default class PostController {
         const user = await userModel.findOne({username: username})
         const userId = user?._id
         if (userId) {
-            const posts = await postModel.find({postedBy: userId}).populate('postedBy', '-_id -password -email -__v').exec()
+            const posts = await postModel.find({postedBy: userId}).populate('postedBy', '-_id -password -email -__v').sort({createdAt: -1}).exec()
             res.status(200).json(posts)
         }
     }
