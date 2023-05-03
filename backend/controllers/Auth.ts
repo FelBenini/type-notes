@@ -20,7 +20,7 @@ export default class Auth {
         res.status(200).json({'session': session})
     }
 
-    static register = (req: Request, res: Response) => {
+    static register = async (req: Request, res: Response) => {
         const {username, password, email} = req.body
         try {
             if (!validate(email)) {
