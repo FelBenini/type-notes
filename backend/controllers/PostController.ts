@@ -30,11 +30,21 @@ export default class PostController {
 
     static getPostByUser = async (req: Request, res: Response) => {
         const {username} = req.params
+        let page: number | string = req.query.page as string || 0 as number
+        const limit: number = parseInt(req.query.limit as string) as number || 15 as number
         const user = await userModel.findOne({username: username})
         const userId = user?._id
         if (userId) {
-            const posts = await postModel.find({postedBy: userId}).populate('postedBy', '-_id -password -email -__v').sort({createdAt: -1}).exec()
-            res.status(200).json(posts)
+            const posts = await postModel
+            .find({postedBy: userId})
+            .limit(limit as number * 1)
+            .skip((page as number) * limit as number)
+            .populate('postedBy', '-_id -password -email -__v')
+            .sort({createdAt: -1})
+            .exec()
+
+            const count = await postModel.find({postedBy: userId}).count()
+            res.status(200).json({postsCount: count, posts: posts})
         }
     }
 }
