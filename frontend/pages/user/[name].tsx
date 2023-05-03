@@ -2,6 +2,7 @@ import SideMenu from '@/components/SideMenu'
 import UserCard from '@/components/UserCard'
 import React from 'react'
 import { useRouter } from 'next/router'
+import Aside from '@/components/Aside'
 
 const Name = () => {
   const router = useRouter()
@@ -10,7 +11,8 @@ const Name = () => {
   return (
     <>
         <SideMenu />
-        <UserCard username={name}/>
+        <UserCard username={name as string}/>
+        <Aside />
     </>
   )
 }
