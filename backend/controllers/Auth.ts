@@ -40,7 +40,6 @@ export default class Auth {
     static session = (req: Request, res: Response) => {
         const token: string | undefined = req.headers.authorization
         const session = jwt.verify(token as string, privateKey)
-        console.log(token)
         res.status(200).json({'session': session})
     }
 

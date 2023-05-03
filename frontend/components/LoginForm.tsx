@@ -15,8 +15,8 @@ const LoginForm = () => {
     const formSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
-            const token = await authService.login(username, password)
-            router.push('/protected')
+            await authService.login(username, password)
+            router.push('/home')
         } catch (error) {
             console.log(error)
         }   
