@@ -2,6 +2,7 @@ import { Request, Response } from "express"
 import jwt, { Secret } from "jsonwebtoken"
 import dotenv from 'dotenv'
 import {validate} from 'email-validator'
+import userModel from "../models/UserModel"
 
 dotenv.config()
 
@@ -25,6 +26,15 @@ export default class Auth {
         try {
             if (!validate(email)) {
                 throw new Error('Invalid e-mail')
+            } else {
+                try {
+                    let userExist = await userModel.findOne({ "$or": [{ email: req.body.email }, { username: req.body.username }] })
+                    if (userExist) {
+                        throw new Error('Username or e-mail already taken')
+                    }
+                } catch (error: any) {
+                    res.status(409).json({'message': error.message})
+                }
             }
         } catch (error: any) {
             res.status(400).json({'message': error.message})
