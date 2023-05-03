@@ -3,14 +3,19 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import Auth from "./controllers/Auth";
 import jwt, {Secret} from 'jsonwebtoken'
+import mongoose from "mongoose";
 
 dotenv.config()
 const PORT = process.env.PORT;
 const privateKey = process.env.PRIVATE_KEY as Secret
+const dbString = process.env.DB_STRING as string
 
 const app: Express = express()
 app.use(cors())
 app.use(express.json())
+
+mongoose.connect(dbString)
+mongoose.connection.once('open', () => {console.log('Connected to database')})
 
 const middlewareAuth = (req: Request, res: Response, next: NextFunction) => {
     const token: string | undefined = req.headers.authorization
