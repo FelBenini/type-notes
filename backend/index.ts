@@ -16,27 +16,16 @@ const middlewareAuth = (req: Request, res: Response, next: NextFunction) => {
     const token: string | undefined = req.headers.authorization
     jwt.verify(token as string, privateKey, (err, decoded) => {
         if (err) {
-            res.status(401).json({'message': 'Unauthorized'})
+            res.status(401).json({'message': 'Unauthorized, jwt was invalid or expired'})
         } else {
             next()
         }
     })
 }
 
-app.get('/login', Auth.login)
+app.post('/login', Auth.login)
 app.get('/session', middlewareAuth, Auth.session)
-
-//app.get('/:name', (req: Request, res: Response) => {
-//    const {name} = req.params || 'Joe'
-//    const token = jwt.sign({name: name}, privateKey, {expiresIn: '60 days'})
-//    res.status(200).json({'Your key is': token})
-//})
-
-//app.get('/decode/:key', middlewareAuth, (req: Request, res: Response) => {
-//    const {key} = req.params
-//    const session = jwt.verify(key, privateKey)
-//    res.status(200).json({session})
-//})
+app.post('/register', Auth.register)
 
 app.listen(PORT, () => {
     console.log(`Server initialized at https://localhost:${PORT}`)

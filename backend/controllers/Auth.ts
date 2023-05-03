@@ -1,6 +1,7 @@
 import { Request, Response } from "express"
 import jwt, { Secret } from "jsonwebtoken"
 import dotenv from 'dotenv'
+import {validate} from 'email-validator'
 
 dotenv.config()
 
@@ -17,5 +18,17 @@ export default class Auth {
         const token: string | undefined = req.headers.authorization
         const session = jwt.verify(token as string, privateKey)
         res.status(200).json({'session': session})
+    }
+
+    static register = (req: Request, res: Response) => {
+        const {username, password, email} = req.body
+        try {
+            if (!validate(email)) {
+                throw new Error('Invalid e-mail')
+            }
+        } catch (error: any) {
+            res.status(400).json({'message': error.message})
+        }
+        res.status(200).json({username, password, email})
     }
 }
