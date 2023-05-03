@@ -7,6 +7,7 @@ import bcrypt from 'bcryptjs'
 
 const salt = bcrypt.genSaltSync(10)
 dotenv.config()
+//r
 
 const privateKey: Secret = process.env.PRIVATE_KEY as Secret
 
@@ -28,6 +29,7 @@ export default class Auth {
         try {
             if (!validate(email)) {
                 throw new Error('Invalid e-mail')
+                return
             } else {
                 try {
                     let userExist = await userModel.findOne({ "$or": [{ email: req.body.email }, { username: req.body.username }] })
@@ -36,10 +38,12 @@ export default class Auth {
                     }
                 } catch (error: any) {
                     res.status(409).json({'message': error.message})
+                    return
                 }
             }
         } catch (error: any) {
             res.status(400).json({'message': error.message})
+            return
         }
         let newUser = await new userModel({
             username: username,
