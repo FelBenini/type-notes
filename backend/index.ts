@@ -34,5 +34,5 @@ app.get('/decode/:key', middlewareAuth, (req: Request, res: Response) => {
 })
 
 app.listen(PORT, () => {
-    console.log('This should work')
+    console.log(`Server initialized at https://localhost:${PORT}`)
 })
