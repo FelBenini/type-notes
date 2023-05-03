@@ -1,7 +1,7 @@
 @use '_login.scss';
 
 body {
-  background-color: #292c34;
+  background-color: #21242b;
   color: #f6f7fa;
 }
 
@@ -11,7 +11,7 @@ body {
 
 header {
   height: 64px;
-  background-color: #2c2e33;
+  background-color: #353842;
   width: calc(100% - 30px);
   padding: 0px 15px;
   position: fixed;
@@ -31,9 +31,33 @@ header {
 
 #bodySectionPaddingHeader {
   padding-top: 65px;
+  height: calc(100% - 65px);
+  display: flex;
+}
+
+#__next {
+  height: 100%;
 }
 
 a {
   color: #d571e3;
   text-decoration: none;
+}
+
+html, body {
+  height: 100%;
+}
+
+#sideMenu {
+  height: calc(100% - 80px);
+  padding-bottom: 80px;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding-left: 16px;
+  padding-right: 16px;
+  border-right: 1px solid #dde3eb21;
+  background-color: #2c2e33;
 }

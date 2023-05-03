@@ -1,5 +1,6 @@
 import { withSession } from '@/authService/authService'
 import React from 'react'
+import SideMenu from '@/components/SideMenu'
 
 export const getServerSideProps = withSession((ctx: any) => {
     return {
@@ -11,7 +12,10 @@ export const getServerSideProps = withSession((ctx: any) => {
 
 const Protected = ({session}: any) => {
   return (
-    <div>{JSON.stringify(session)}</div>
+    <>
+      <SideMenu/>
+      {JSON.stringify(session)}
+    </>
   )
 }
 
