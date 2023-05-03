@@ -11,8 +11,18 @@ dotenv.config()
 const privateKey: Secret = process.env.PRIVATE_KEY as Secret
 
 export default class Auth {
-    static login = (req: Request, res: Response) => {
-        const {username} = req.body
+    static login = async (req: Request, res: Response) => {
+        const {username, password} = req.body
+        const user = await userModel.findOne({ username: username })
+        if(!user) {
+            res.status(404).json({'message': 'Username was incorrect'})
+            return
+        }
+        const passVerification = bcrypt.compareSync(password, user.password)
+        if(!passVerification) {
+            res.status(401).json({'message': 'Unauthorized, invalid credentials'})
+            return
+        }
         const token = jwt.sign({'username': username}, privateKey, {expiresIn: '60 days'})
         res.status(200).json({'token': token})
     }
