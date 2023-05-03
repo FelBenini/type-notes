@@ -3,7 +3,9 @@ import jwt, { Secret } from "jsonwebtoken"
 import dotenv from 'dotenv'
 import {validate} from 'email-validator'
 import userModel from "../models/UserModel"
+import bcrypt from 'bcryptjs'
 
+const salt = bcrypt.genSaltSync(10)
 dotenv.config()
 
 const privateKey: Secret = process.env.PRIVATE_KEY as Secret
@@ -39,6 +41,13 @@ export default class Auth {
         } catch (error: any) {
             res.status(400).json({'message': error.message})
         }
+        let newUser = await new userModel({
+            username: username,
+            displayName: username,
+            password: bcrypt.hashSync(password, salt),
+            email: email
+        })
+        newUser.save()
         res.status(200).json({username, password, email})
     }
 }
