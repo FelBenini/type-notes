@@ -3,18 +3,20 @@ import React, { useState } from 'react'
 import { Poppins } from 'next/font/google'
 import Link from 'next/link'
 import { authService } from '@/authService/authService'
+import { useRouter } from 'next/router'
 
 const poppins = Poppins({ subsets: ['latin'], weight: '600' })
 const poppinsParagraph = Poppins({ subsets: ['latin'], weight: '200' })
 
 const LoginForm = () => {
+    const router = useRouter()
     const [username, setUsername] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const formSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
             const token = await authService.login(username, password)
-            console.log(token)
+            router.push('/protected')
         } catch (error) {
             console.log(error)
         }   

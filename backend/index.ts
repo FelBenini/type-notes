@@ -4,6 +4,7 @@ import cors from 'cors'
 import Auth from "./controllers/Auth";
 import jwt, {Secret} from 'jsonwebtoken'
 import mongoose from "mongoose";
+import UserController from "./controllers/UserInformation";
 
 dotenv.config()
 const PORT = process.env.PORT;
@@ -31,6 +32,7 @@ const middlewareAuth = (req: Request, res: Response, next: NextFunction) => {
 app.post('/login', Auth.login)
 app.get('/session', middlewareAuth, Auth.session)
 app.post('/register', Auth.register)
+app.get('/user/:username', UserController.getUserInfo)
 
 app.listen(PORT, () => {
     console.log(`Server initialized at https://localhost:${PORT}`)

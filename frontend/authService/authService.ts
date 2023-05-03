@@ -41,7 +41,7 @@ export function withSession(funcao: any) {
             return {
                 redirect: {
                     permanent: false,
-                    destination: '/',
+                    destination: '/login',
                 }
             }
         }
