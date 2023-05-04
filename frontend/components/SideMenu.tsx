@@ -17,18 +17,21 @@ const SideMenu = () => {
 
     const getUsername = async () => {
         const token = cookie.get('AUTHJWTKEY')
-        const { data } = await axios.get(`http://localhost:4000/session`, {
-            headers: {
-                'authorization': token
-            }
-        })
-        setUsername(data.session.username)
+        try {
+            const res = await axios.get(`http://localhost:4000/session`, {
+                headers: {
+                    'authorization': token
+                }
+            })
+            setUsername(`/user/${res.data.session.username}`)
+        } catch (err) {
+            setUsername('#')
+        }
     }
 
     useEffect(() => {
         getUsername()
     })
-
 
     return (
         <div id="sideMenu">
@@ -37,7 +40,7 @@ const SideMenu = () => {
             </Link>
             <Button startIcon={<MdRadar />} sx={buttonSx}>Explore</Button>
             <Button startIcon={<IoIosNotifications />} sx={buttonSx}>Notifications</Button>
-            <Link href={`/user/${userName}`}>
+            <Link href={`${userName}`}>
                 <Button startIcon={<BiUser />} sx={buttonSx}>Profile</Button>
             </Link>
             <Button startIcon={<RiMore2Fill />} sx={buttonSx}>More</Button>
