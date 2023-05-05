@@ -20,6 +20,7 @@ export default class PostController {
         const {id} = req.params
         const post = await postModel.findById(id)
         .populate('postedBy', '-_id -password -email -__v')
+        .populate('likedBy', 'username displayName followerCount followingCount profilePic -_id')
         .exec()
         if (post) {
           res.status(200).json(post)
@@ -55,9 +56,15 @@ export default class PostController {
         const user = await userModel.findOne({username: username})
         const userId = user?._id
         if (userId) {
-            const post = await postModel.findByIdAndUpdate(id, {$inc: {likesCount: 1}, "$push": {"likedBy": userId}})
-            if (post) {
-                res.json(post)
+            const postAddress = await postModel.findById(id)
+            if (postAddress) {
+                if (postAddress.likedBy.includes(userId)) {
+                    const post = await postModel.findByIdAndUpdate(id, {$inc: {likesCount: -1}, "$pull": {"likedBy": userId}})
+                    res.status(200).json({'message': 'like was removed'})
+                } else {
+                    const post = await postModel.findByIdAndUpdate(id, {$inc: {likesCount: 1}, "$push": {"likedBy": userId}})
+                    res.status(200).json({'message': 'post was liked'})
+                }
                 return
             }
         }
