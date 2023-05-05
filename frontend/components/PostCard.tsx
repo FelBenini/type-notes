@@ -11,14 +11,14 @@ const cookie = new Cookies()
 const PostCard = ({ info }: { info: any }) => {
     const [likeCount, setLikeCount] = useState({ likeCount: info.likesCount, liked: false })
 
-    const likeThisPost = async () => {
+    const likeThisPost = () => {
         if (likeCount.liked === false) {
             setLikeCount({ likeCount: likeCount.likeCount + 1, liked: true })
         } else {
             setLikeCount({ likeCount: likeCount.likeCount - 1, liked: false })
         }
         const token = cookie.get('AUTHJWTKEY')
-        await axios.put(`http://localhost:4000/post/like/${info._id}`, {}, { headers: { authorization: token } })
+        axios.put(`http://localhost:4000/post/like/${info._id}`, {}, { headers: { authorization: token } })
     }
     return (
         <div className='postCard'>

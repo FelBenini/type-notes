@@ -4,7 +4,7 @@ import { decodeJwtUsername } from './Auth'
 import userModel from "../models/UserModel"
 
 export default class PostController {
-    static creatPost = async (req: Request, res: Response) => {
+    static createPost = async (req: Request, res: Response) => {
         const token: string = req.headers.authorization as string
         const userNameAuth = decodeJwtUsername(token)
         const postedById = await userModel.findOne({username: userNameAuth})
