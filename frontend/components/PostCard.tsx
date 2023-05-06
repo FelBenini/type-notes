@@ -37,11 +37,11 @@ const PostCard = ({ info }: { info: any }) => {
                     <h5>{likeCount.likeCount}</h5>
                 </span>
                 <span className='spanSection'>
-                    <IconButton aria-label='repost this post'><FiRepeat size={20} /></IconButton>
+                    <IconButton color='success' aria-label='repost this post'><FiRepeat color='white' size={20} /></IconButton>
                     <h5>{info.likesCount}</h5>
                 </span>
                 <span className='spanSection'>
-                    <IconButton aria-label='comment this post'><FiMessageCircle size={20} /></IconButton>
+                    <IconButton color='info' aria-label='comment this post'><FiMessageCircle color='white' size={20} /></IconButton>
                     <h5>{info.likesCount}</h5>
                 </span>
                 <span className='spanSection'>
