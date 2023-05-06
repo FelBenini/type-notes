@@ -1,6 +1,7 @@
 import { IconButton } from '@mui/material'
 import React, { useState } from 'react'
-import { FiHeart, FiRepeat, FiMessageCircle, FiMoreVertical } from 'react-icons/fi'
+import { FiRepeat, FiMessageCircle, FiMoreVertical } from 'react-icons/fi'
+import {BsFillHeartFill, BsHeart} from 'react-icons/bs'
 import { format } from 'timeago.js'
 import Link from 'next/link'
 import { Cookies } from 'react-cookie'
@@ -32,7 +33,7 @@ const PostCard = ({ info }: { info: any }) => {
             <p>{info.content}</p>
             <span className='postToolbar'>
                 <span className='spanSection'>
-                    <IconButton onClick={likeThisPost} aria-label='like this post'><FiHeart size={20} /></IconButton>
+                    <IconButton color='success' onClick={likeThisPost} aria-label='like this post'>{!likeCount.liked ?<BsHeart color='white' size={20} />: <BsFillHeartFill color='#D81E5B' size={20} />}</IconButton>
                     <h5>{likeCount.likeCount}</h5>
                 </span>
                 <span className='spanSection'>
