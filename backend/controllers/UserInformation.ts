@@ -17,7 +17,7 @@ export default class UserController {
         const token: string = req.headers.authorization as string
         const userNameAuth = decodeJwtUsername(token)
         const username = req.params.name
-        if (userNameAuth.toUpperCase() != username.toUpperCase()) {
+        if (userNameAuth?.toUpperCase() != username.toUpperCase()) {
             res.status(409).json({ 'message': 'unauthorized' })
             return
         }

@@ -15,9 +15,12 @@ export interface IPayLoadJwt extends JwtPayload {
     exp: number
 }
 
-export function decodeJwtUsername(token: string) {
-    const decoded: IPayLoadJwt = jwt.verify(token as string, privateKey) as IPayLoadJwt
-    return decoded.username
+export function decodeJwtUsername(token: string | undefined) {
+    if (token) {
+       const decoded: IPayLoadJwt = jwt.verify(token as string, privateKey) as IPayLoadJwt
+        return decoded.username 
+    }
+    return undefined
 }
 
 export default class Auth {
