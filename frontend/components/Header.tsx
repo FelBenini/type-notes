@@ -11,7 +11,6 @@ const Header = () => {
             <BiLandscape color="#c313dc" size={'42px'}/>
             <h1>typeNotes</h1>
         </span>
-        
     </header>
   )
 }

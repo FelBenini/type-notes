@@ -42,12 +42,27 @@ export default class PostController {
             .skip((page as number) * limit as number)
             .populate('postedBy', '-_id -password -email -__v')
             .populate('likedBy', '-_id -password -email -__v')
+            .populate({
+                path: 'likedBy',
+                match: { username: 'felipe' },
+                select: '-_id -password -email -__v',
+              })
             .sort({createdAt: -1})
-            .exec()
+            .lean();
+
+            posts.forEach((post: any) => {
+                if (post.likedBy && post.likedBy.length > 0) {
+                  post.liked = post.likedBy.some((user: any) => user.username === 'felipe');
+                } else {
+                  post.liked = false;
+                }
+              });
 
             const count = await postModel.find({postedBy: userId}).count()
             res.status(200).json({postsCount: count, posts: posts})
+            return
         }
+        res.status(404).json({'message': 'User was not found'})
     }
 
     static likeAPost = async (req: Request, res: Response) => {
