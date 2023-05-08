@@ -3,6 +3,9 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import PostCard from './PostCard'
 import { Button } from '@mui/material'
+import { Cookies } from 'react-cookie'
+
+const cookie = new Cookies()
 
 const UserPosts = ({ username }: { username: string | string[] | undefined }) => {
     const [loading, setLoading] = useState(true)
@@ -12,7 +15,12 @@ const UserPosts = ({ username }: { username: string | string[] | undefined }) =>
     const [page, setPage] = useState(0)
 
     const fetchData = async (username: string | string[] | undefined) => {
-        const { data } = await axios.get(`http://localhost:4000/user/post/${username}?page=${page}`)
+        const token = cookie.get('AUTHJWTKEY')
+        const { data } = await axios.get(`http://localhost:4000/user/post/${username}?page=${page}`, {
+            headers: {
+                'authorization': token
+            }
+        })
         setPostLimit(data.postsCount)
         setPostData([...postData, ...data.posts])
         setPage(page + 1)

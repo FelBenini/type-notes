@@ -10,7 +10,7 @@ import axios from 'axios'
 const cookie = new Cookies()
 
 const PostCard = ({ info }: { info: any }) => {
-    const [likeCount, setLikeCount] = useState({ likeCount: info.likesCount, liked: false })
+    const [likeCount, setLikeCount] = useState({ likeCount: info.likesCount, liked: info.liked || false })
 
     const likeThisPost = () => {
         if (likeCount.liked === false) {
