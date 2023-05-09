@@ -29,13 +29,13 @@ const UserCard = ({ username }: { username: string | undefined }) => {
   const [userInfo, setUserInfo] = useState<IUserInfo | undefined>();
   const [loading, setLoading] = useState(true);
   const fetchData = async (username: string | undefined) => {
-    const { data } = await axios.get(`http://localhost:4000/user/${username}`);
+    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/user/${username}`);
     setUserInfo(data);
     setLoading(false);
   };
   const getUsername = async () => {
     const token = cookie.get("AUTHJWTKEY");
-    const { data } = await axios.get(`http://localhost:4000/session`, {
+    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/session`, {
       headers: {
         authorization: token,
       },

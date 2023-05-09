@@ -19,7 +19,7 @@ const PostCard = ({ info }: { info: any }) => {
             setLikeCount({ likeCount: likeCount.likeCount - 1, liked: false })
         }
         const token = cookie.get('AUTHJWTKEY')
-        axios.put(`http://localhost:4000/post/like/${info._id}`, {}, { headers: { authorization: token } })
+        axios.put(`${process.env.NEXT_PUBLIC_API_URL}/post/like/${info._id}`, {}, { headers: { authorization: token } })
     }
     return (
         <div className='postCard'>
@@ -38,11 +38,11 @@ const PostCard = ({ info }: { info: any }) => {
                 </span>
                 <span className='spanSection'>
                     <IconButton color='success' aria-label='repost this post'><FiRepeat color='white' size={20} /></IconButton>
-                    <h5>{info.likesCount}</h5>
+                    <h5>0</h5>
                 </span>
                 <span className='spanSection'>
                     <IconButton color='info' aria-label='comment this post'><FiMessageCircle color='white' size={20} /></IconButton>
-                    <h5>{info.likesCount}</h5>
+                    <h5>0</h5>
                 </span>
                 <span className='spanSection'>
                     <IconButton aria-label='comment this post'><FiMoreVertical size={20} /></IconButton>

@@ -16,7 +16,7 @@ const UserPosts = ({ username }: { username: string | string[] | undefined }) =>
 
     const fetchData = async (username: string | string[] | undefined) => {
         const token = cookie.get('AUTHJWTKEY')
-        const { data } = await axios.get(`http://localhost:4000/user/post/${username}?page=${page}`, {
+        const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/user/post/${username}?page=${page}`, {
             headers: {
                 'authorization': token
             }
@@ -29,7 +29,7 @@ const UserPosts = ({ username }: { username: string | string[] | undefined }) =>
     }
 
     const fetchMore = async () => {
-        const { data } = await axios.get(`http://localhost:4000/user/post/${username}?page=${page}`)
+        const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/user/post/${username}?page=${page}`)
         setPostData([...postData, ...data.posts])
         setPage(page + 1)
         setPostsCount(postsCount + 15)
