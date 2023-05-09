@@ -3,17 +3,17 @@ import React from 'react'
 import SideMenu from '@/components/SideMenu'
 
 export const getServerSideProps = withSession((ctx: any) => {
-    return {
-        props: {
-            session: ctx.req.session
-        }
+  return {
+    props: {
+      session: ctx.req.session
     }
+  }
 })
 
-const Protected = ({session}: any) => {
+const Protected = ({ session }: any) => {
   return (
     <>
-      <SideMenu/>
+      <SideMenu />
       <section className='sideMenuPositioned'>
         {JSON.stringify(session)}
       </section>

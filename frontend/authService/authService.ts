@@ -1,6 +1,6 @@
 import axios from "axios"
 import nookies from 'nookies'
-import {Cookies} from 'react-cookie'
+import { Cookies } from 'react-cookie'
 const apiURL = process.env.API_URL || 'http://localhost:4000'
 
 const cookie = new Cookies()

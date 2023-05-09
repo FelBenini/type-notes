@@ -1,4 +1,4 @@
-import mongoose, {model, Model, Document, ObjectId} from "mongoose";
+import mongoose, { model, Model, Document, ObjectId } from "mongoose";
 
 export interface IPost {
     postedBy: ObjectId;
@@ -8,17 +8,17 @@ export interface IPost {
     content: string;
 }
 
-export interface IPostDocument extends IPost, Document {}
+export interface IPostDocument extends IPost, Document { }
 export interface IPostModel extends Model<IPostDocument> {
     buildUser(args: IPost): IPostDocument
 }
 
 const postSchema = new mongoose.Schema<IPost>({
-    postedBy: {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Users'},
-    createdAt: {type: Date, default: () => Date.now()},
-    likesCount: {type: Number, required: true, default: 0},
-    likedBy: [{type: mongoose.Schema.Types.ObjectId, ref: 'Users'}],
-    content: {type: String, required: true}
+    postedBy: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Users' },
+    createdAt: { type: Date, default: () => Date.now() },
+    likesCount: { type: Number, required: true, default: 0 },
+    likedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Users' }],
+    content: { type: String, required: true }
 })
 
 const postModel = model<IPostDocument, IPostModel>('Posts', postSchema)

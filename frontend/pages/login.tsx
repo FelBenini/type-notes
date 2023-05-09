@@ -4,7 +4,7 @@ import React from 'react'
 const Login = () => {
   return (
     <section id='login'>
-        <LoginForm/>
+      <LoginForm />
     </section>
   )
 }

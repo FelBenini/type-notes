@@ -49,7 +49,7 @@ const UserPosts = ({ username }: { username: string | string[] | undefined }) =>
         return (
             <section id='postsSection'>
                 {mappedPosts}
-                {postsCount < postLimit ? <Button sx={{width: '100%'}} onClick={fetchMore}>Load more</Button> : <></>}
+                {postsCount < postLimit ? <Button sx={{ width: '100%' }} onClick={fetchMore}>Load more</Button> : <></>}
             </section>
         )
     } else {
