@@ -92,4 +92,23 @@ export default class PostController {
         res.status(404).json()
 
     }
+
+    static commentAPost = async (req: Request, res: Response) => {
+        const username = decodeJwtUsername(req.headers.authorization as string)
+        const user = await userModel.findOne({ username: username })
+        const userId = user?._id
+        if (userId) {
+            const reply = await new postModel({
+                postedBy: user,
+                content: req.body.content,
+                type: 'reply'
+            })
+            reply.save()
+            const post = await postModel.findByIdAndUpdate(req.params.id, {$inc: {replyCount: 1}, '$push': {replies: reply._id}})
+            .exec()
+            res.json({'message': 'Post replied'})
+            return
+        }
+        res.status(404).json({message: 'User not found'})
+    }
 }

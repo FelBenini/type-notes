@@ -6,6 +6,9 @@ export interface IPost {
     likesCount: Number;
     likedBy: Array<ObjectId>;
     content: string;
+    type: string;
+    replies: Array<ObjectId>;
+    replyCount: Number
 }
 
 export interface IPostDocument extends IPost, Document { }
@@ -18,7 +21,10 @@ const postSchema = new mongoose.Schema<IPost>({
     createdAt: { type: Date, default: () => Date.now() },
     likesCount: { type: Number, required: true, default: 0 },
     likedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Users' }],
-    content: { type: String, required: true }
+    content: { type: String, required: true },
+    type: {type: String, required: true, default: 'post'},
+    replies: [{type: mongoose.Schema.Types.ObjectId, ref: 'Posts'}],
+    replyCount: {type: Number, required: true, default: 0}
 })
 
 const postModel = model<IPostDocument, IPostModel>('Posts', postSchema)
