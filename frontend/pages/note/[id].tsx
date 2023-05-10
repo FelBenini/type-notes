@@ -10,6 +10,7 @@ import { FiRepeat, FiMessageCircle, FiMoreVertical } from 'react-icons/fi'
 import { BsFillHeartFill, BsHeart } from 'react-icons/bs'
 import { IconButton } from '@mui/material'
 import { Cookies } from 'react-cookie'
+import Comment from '@/components/Comment'
 import nookies from 'nookies'
 
 const cookie = new Cookies()
@@ -75,6 +76,7 @@ const PostPage = ({ data, status }: { data: any, status: Number }) => {
                         </span>
                     </span>
                 </div>
+                <Comment />
             </section>
             <Aside />
         </>

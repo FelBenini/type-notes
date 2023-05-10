@@ -1,39 +1,62 @@
 #postPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: calc(82% - 200px);
+  & .mainPost {
+    width: 95%;
+    padding: 0 5%;
+    padding-bottom: 24px;
+    border-bottom: #c6cad16e 1px solid;
+    padding-top: 28px;
+    & .postToolbar {
+        margin-top: 28px;
+      & .spanSection h5 {
+        margin-top: 0;
+      }
+    }
+    & .contentPost {
+      width: 95%;
+      margin: 0 auto;
+    }
+  }
+  & .profilePic {
+    width: 44px;
+    height: 44px;
+    background-color: aliceblue;
+    border-radius: 100%;
+  }
+  & .userTip {
     display: flex;
-    flex-direction: column;
+    height: 48px;
     align-items: center;
-    width: calc(82% - 200px);
-    & .mainPost {
-        width: 95%;
-        padding-top: 24px;
-        & .contentPost {
-            width: 95%;
-            margin: 0 auto;
-        }
+    width: fit-content;
+    margin-bottom: 36px;
+    & h4 {
+      margin-left: 12px;
+      color: #f6f7fa;
     }
-    & .profilePic {
-        width: 44px;
-        height: 44px;
-        background-color: aliceblue;
-        border-radius: 100%;
+    & p {
+      margin: 0;
+      margin-left: 8px;
+      font-size: 14px;
+      color: #c6cad1;
+      margin-top: 0px;
+      width: fit-content;
     }
-    & .userTip {
-        display: flex;
-        height: 48px;
-        align-items: center;
-        width: fit-content;
-        margin-bottom: 36px;
-        & h4 {
-            margin-left: 12px;
-            color: #f6f7fa;
-        }
-        & p {
-            margin: 0;
-            margin-left: 8px;
-            font-size: 14px;
-            color: #c6cad1;
-            margin-top: 0px;
-            width: fit-content;
-        }
-    }
+  }
+}
+
+.commentInput {
+    display: flex;
+    justify-content: space-between;
+    min-height: 64px;
+    height: fit-content;
+    align-items: center;
+    width: 90%;
+    padding-right: 7%;
+    padding-left: 3%;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-bottom: #c6cad16e 1px solid;
 }

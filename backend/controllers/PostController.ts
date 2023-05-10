@@ -21,7 +21,7 @@ export default class PostController {
         const post = await postModel.findById(id)
             .populate('postedBy', '-_id -password -email -__v')
             .populate('likedBy', 'username displayName followerCount followingCount profilePic -_id')
-            .lean()
+            .lean() as any
         const userReq = decodeJwtUsername(req.headers.authorization) || undefined
         if (post) {
             if (userReq) {
