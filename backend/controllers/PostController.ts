@@ -8,12 +8,16 @@ export default class PostController {
         const token: string = req.headers.authorization as string
         const userNameAuth = decodeJwtUsername(token)
         const postedById = await userModel.findOne({ username: userNameAuth })
-        let newPost = await new postModel({
-            postedBy: postedById,
-            content: req.body.content
-        })
-        newPost.save()
-        res.status(200).send('post saved')
+        if (postedById) {
+            let newPost = await new postModel({
+                postedBy: postedById._id,
+                content: req.body.content
+            })
+            newPost.save()
+            res.status(200).send('post saved')
+            return
+        }
+        res.status(401).json({'message': 'username was not found'})
     }
 
     static getSinglePost = async (req: Request, res: Response) => {
@@ -104,23 +108,23 @@ export default class PostController {
                 type: 'reply'
             })
             reply.save()
-            const post = await postModel.findByIdAndUpdate(req.params.id, {$inc: {replyCount: 1}, '$push': {replies: reply._id}})
-            .exec()
-            res.json({'message': 'Post replied'})
+            const post = await postModel.findByIdAndUpdate(req.params.id, { $inc: { replyCount: 1 }, '$push': { replies: reply._id } })
+                .exec()
+            res.json({ 'message': 'Post replied' })
             return
         }
-        res.status(404).json({message: 'User not found'})
+        res.status(404).json({ message: 'User not found' })
     }
 
     static getReplies = async (req: Request, res: Response) => {
-        const {id} = req.params
+        const { id } = req.params
         const post = await postModel.findById(id)
-        .populate({path: 'replies', populate: {path: 'postedBy'}})
-        .exec()
+            .populate({ path: 'replies', populate: { path: 'postedBy' } })
+            .exec()
         if (post) {
-           res.json(post.replies)
-           return
+            res.json(post.replies)
+            return
         }
-        res.status(404).json({'message': 'Post was not found'})
+        res.status(404).json({ 'message': 'Post was not found' })
     }
 }
