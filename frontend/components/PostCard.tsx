@@ -5,6 +5,7 @@ import { BsFillHeartFill, BsHeart } from 'react-icons/bs'
 import { format } from 'timeago.js'
 import Link from 'next/link'
 import { Cookies } from 'react-cookie'
+import { numberFormat } from './numberFormat'
 import axios from 'axios'
 
 const cookie = new Cookies()
@@ -34,7 +35,7 @@ const PostCard = ({ info }: { info: any }) => {
             <span className='postToolbar'>
                 <span className='spanSection'>
                     <IconButton color='warning' onClick={likeThisPost} aria-label='like this post'>{!likeCount.liked ? <BsHeart color='white' size={20} /> : <BsFillHeartFill color='#D81E5B' size={20} />}</IconButton>
-                    <h5>{likeCount.likeCount}</h5>
+                    <h5>{numberFormat(likeCount.likeCount as string)}</h5>
                 </span>
                 <span className='spanSection'>
                     <IconButton color='success' aria-label='repost this post'><FiRepeat color='white' size={20} /></IconButton>
@@ -42,7 +43,7 @@ const PostCard = ({ info }: { info: any }) => {
                 </span>
                 <span className='spanSection'>
                     <IconButton color='info' aria-label='comment this post'><FiMessageCircle color='white' size={20} /></IconButton>
-                    <h5>{info.replyCount || 0}</h5>
+                    <h5>{numberFormat(info.replyCount as string || '0')}</h5>
                 </span>
                 <span className='spanSection'>
                     <IconButton aria-label='comment this post'><FiMoreVertical size={20} /></IconButton>

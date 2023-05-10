@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { Open_Sans } from 'next/font/google'
 import { FiRepeat, FiMessageCircle, FiMoreVertical } from 'react-icons/fi'
 import { BsFillHeartFill, BsHeart } from 'react-icons/bs'
+import { numberFormat } from '@/components/numberFormat'
 import { IconButton } from '@mui/material'
 import { Cookies } from 'react-cookie'
 import Comment from '@/components/Comment'
@@ -62,7 +63,7 @@ const PostPage = ({ data, status }: { data: any, status: Number }) => {
                     <span className='postToolbar'>
                         <span className='spanSection'>
                             <IconButton color='warning' onClick={likeThisPost} aria-label='like this post'>{!likeCount.liked ? <BsHeart color='white' size={20} /> : <BsFillHeartFill color='#D81E5B' size={20} />}</IconButton>
-                            <h5>{likeCount.likeCount}</h5>
+                            <h5>{numberFormat(likeCount.likeCount)}</h5>
                         </span>
                         <span className='spanSection'>
                             <IconButton color='success' aria-label='repost this post'><FiRepeat color='white' size={20} /></IconButton>
@@ -70,7 +71,7 @@ const PostPage = ({ data, status }: { data: any, status: Number }) => {
                         </span>
                         <span className='spanSection'>
                             <IconButton color='info' aria-label='comment this post'><FiMessageCircle color='white' size={20} /></IconButton>
-                            <h5>{data.replyCount || 0}</h5>
+                            <h5>{numberFormat(data.replyCount || '0')}</h5>
                         </span>
                         <span className='spanSection'>
                             <IconButton aria-label='comment this post'><FiMoreVertical size={20} /></IconButton>
