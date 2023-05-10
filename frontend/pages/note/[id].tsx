@@ -10,14 +10,20 @@ import { FiRepeat, FiMessageCircle, FiMoreVertical } from 'react-icons/fi'
 import { BsFillHeartFill, BsHeart } from 'react-icons/bs'
 import { IconButton } from '@mui/material'
 import { Cookies } from 'react-cookie'
+import nookies from 'nookies'
 
 const cookie = new Cookies()
 
 const openSans = Open_Sans({ weight: "400", subsets: ['latin'] })
 
 export async function getServerSideProps(ctx: NextPageContext) {
+    const cookies = nookies.get(ctx)
     const { id } = ctx.query
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/post/${id}`)
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/post/${id}`, {
+        headers: {
+            'authorization': cookies['AUTHJWTKEY']
+        }
+    })
     return {
         props: {
             data: res.data,

@@ -21,8 +21,16 @@ export default class PostController {
         const post = await postModel.findById(id)
             .populate('postedBy', '-_id -password -email -__v')
             .populate('likedBy', 'username displayName followerCount followingCount profilePic -_id')
-            .exec()
+            .lean()
+        const userReq = decodeJwtUsername(req.headers.authorization) || undefined
         if (post) {
+            if (userReq) {
+                if (post.likedBy && post.likedBy.length > 0) {
+                    post.liked = post.likedBy.some((user: any) => user.username.toUpperCase() === userReq.toUpperCase());
+                } else {
+                    post.liked = false;
+                }
+            }
             res.status(200).json(post)
             return
         }
