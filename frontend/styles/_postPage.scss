@@ -1,0 +1,39 @@
+#postPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: calc(82% - 200px);
+    & .mainPost {
+        width: 95%;
+        padding-top: 24px;
+        & .contentPost {
+            width: 95%;
+            margin: 0 auto;
+        }
+    }
+    & .profilePic {
+        width: 44px;
+        height: 44px;
+        background-color: aliceblue;
+        border-radius: 100%;
+    }
+    & .userTip {
+        display: flex;
+        height: 48px;
+        align-items: center;
+        width: fit-content;
+        margin-bottom: 36px;
+        & h4 {
+            margin-left: 12px;
+            color: #f6f7fa;
+        }
+        & p {
+            margin: 0;
+            margin-left: 8px;
+            font-size: 14px;
+            color: #c6cad1;
+            margin-top: 0px;
+            width: fit-content;
+        }
+    }
+}
