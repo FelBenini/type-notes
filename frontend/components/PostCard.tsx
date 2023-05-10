@@ -22,7 +22,7 @@ const PostCard = ({ info }: { info: any }) => {
         axios.put(`${process.env.NEXT_PUBLIC_API_URL}/post/like/${info._id}`, {}, { headers: { authorization: token } })
     }
     return (
-        <div className='postCard'>
+        <Link href={`/note/${info._id}`} className='postCard'>
             <Link href={`/user/${info.postedBy.username}`} className='userTip'>
                 <span className='profilePic'></span>
                 <h4>{info.postedBy.displayName}</h4>
@@ -48,7 +48,7 @@ const PostCard = ({ info }: { info: any }) => {
                     <IconButton aria-label='comment this post'><FiMoreVertical size={20} /></IconButton>
                 </span>
             </span>
-        </div>
+        </Link>
     )
 }
 
