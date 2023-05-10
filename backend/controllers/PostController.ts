@@ -111,4 +111,16 @@ export default class PostController {
         }
         res.status(404).json({message: 'User not found'})
     }
+
+    static getReplies = async (req: Request, res: Response) => {
+        const {id} = req.params
+        const post = await postModel.findById(id)
+        .populate({path: 'replies', populate: {path: 'postedBy'}})
+        .exec()
+        if (post) {
+           res.json(post.replies)
+           return
+        }
+        res.status(404).json({'message': 'Post was not found'})
+    }
 }

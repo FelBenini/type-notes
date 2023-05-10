@@ -12,6 +12,7 @@ import { IconButton } from '@mui/material'
 import { Cookies } from 'react-cookie'
 import Comment from '@/components/Comment'
 import nookies from 'nookies'
+import Replies from '@/components/Replies'
 
 const cookie = new Cookies()
 
@@ -77,6 +78,7 @@ const PostPage = ({ data, status }: { data: any, status: Number }) => {
                     </span>
                 </div>
                 <Comment />
+                <Replies id={data._id as string}/>
             </section>
             <Aside />
         </>

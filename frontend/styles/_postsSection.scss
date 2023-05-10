@@ -1,3 +1,9 @@
+.repliesSection {
+    & .postCard p {
+        margin-top: 8px;
+    }
+}
+
 #postsSection {
     width: 85%;
     margin: 32px auto;
