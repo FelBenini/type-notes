@@ -42,7 +42,7 @@ const PostCard = ({ info }: { info: any }) => {
                 </span>
                 <span className='spanSection'>
                     <IconButton color='info' aria-label='comment this post'><FiMessageCircle color='white' size={20} /></IconButton>
-                    <h5>0</h5>
+                    <h5>{info.replyCount || 0}</h5>
                 </span>
                 <span className='spanSection'>
                     <IconButton aria-label='comment this post'><FiMoreVertical size={20} /></IconButton>
