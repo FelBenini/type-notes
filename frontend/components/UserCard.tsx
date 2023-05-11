@@ -12,6 +12,7 @@ const cookie = new Cookies();
 const openSans = Open_Sans({ subsets: ["latin"], weight: "400" });
 
 export interface IUserInfo {
+  _id: any;
   username: string;
   email: string;
   displayName: string;
@@ -28,6 +29,11 @@ const UserCard = ({ username }: { username: string | undefined }) => {
   const [userNameSession, setUserNameSession] = useState("");
   const [userInfo, setUserInfo] = useState<IUserInfo | undefined>();
   const [loading, setLoading] = useState(true);
+  const followUser = async (id: string | undefined) => {
+    const token = cookie.get('AUTHJWTKEY')
+    await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/follow/${id}`, {}, { headers: { authorization: token } })
+  }
+
   const fetchData = async (username: string | undefined) => {
     const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/user/${username}`);
     setUserInfo(data);
@@ -94,6 +100,7 @@ const UserCard = ({ username }: { username: string | undefined }) => {
               color="secondary"
               sx={{ padding: "12px 24px", borderRadius: "60px" }}
               variant="contained"
+              onClick={() => followUser(userInfo?._id as string)}
             >
               Follow
             </Button>
