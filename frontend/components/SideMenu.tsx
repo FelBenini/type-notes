@@ -61,7 +61,7 @@ const SideMenu = () => {
                 <Button startIcon={<BiUser />} sx={buttonSx}>Profile</Button>
             </Link>
             <Button startIcon={<RiMore2Fill />} sx={buttonSx}>More</Button>
-            <Button startIcon={<BiPlus />} color='secondary' sx={{ width: '100%', height: '42px', borderRadius: '60px', fontWeight: '600', fontSize: '16px' }} variant='contained'>New Note</Button>
+            <Link href='/post' style={{width: '100%'}}><Button startIcon={<BiPlus />} color='secondary' sx={{ width: '100%', height: '42px', borderRadius: '60px', fontWeight: '600', fontSize: '16px' }} variant='contained'>New Note</Button></Link>
             <div className='userToolTipMenu'>
                 <h3>name</h3>
                 <IconButton
