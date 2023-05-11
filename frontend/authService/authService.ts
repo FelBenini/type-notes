@@ -14,6 +14,11 @@ export class authService {
         return data.token
     }
 
+    static logout = async () => {
+        cookie.remove('AUTHJWTKEY')
+        return
+    }
+
     static getSession = async (ctx: any) => {
         const cookies = nookies.get(ctx)
         const { data } = await axios.get(`${apiURL}/session`, {
