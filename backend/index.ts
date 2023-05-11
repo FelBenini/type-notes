@@ -24,7 +24,7 @@ app.use(
     '/images',
      express.static(path.join(__dirname, './images'))
    );
-
+mongoose.set('strictQuery', false)
 mongoose.connect(dbString)
 mongoose.connection.once('open', () => {console.log('Connected to database')})
 
