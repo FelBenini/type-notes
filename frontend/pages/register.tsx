@@ -3,6 +3,7 @@ import { TextField, Button } from '@mui/material'
 import Link from 'next/link'
 import { Poppins } from 'next/font/google'
 import axios, { AxiosError } from 'axios'
+import { useRouter } from 'next/router'
 
 const poppins = Poppins({ subsets: ['latin'], weight: '600' })
 const poppinsParagraph = Poppins({ subsets: ['latin'], weight: '200' })
@@ -12,6 +13,7 @@ const RegisterPage = () => {
     const [email, setEmail] = useState('')
     const [username, setUsername] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
+    const router = useRouter()
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -23,10 +25,12 @@ const RegisterPage = () => {
             })
         } catch (err: any) {
             setErrorMessage(err.response.data.message)
+            return
         }
-
-
+        router.push('/login')
+        return
     }
+
     return (
         <section id='login'>
             <form onSubmit={handleSubmit}>
