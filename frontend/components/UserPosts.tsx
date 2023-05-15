@@ -37,7 +37,7 @@ const UserPosts = ({ username }: { username: string | string[] | undefined }) =>
     }
 
     useEffect(() => {
-        fetchData(username)
+        fetchData(username) // eslint-disable-next-line
     }, [username])
 
     if (!loading) {
