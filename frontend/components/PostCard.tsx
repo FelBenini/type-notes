@@ -41,10 +41,10 @@ const PostCard = ({ info }: { info: any }) => {
                     <IconButton color='success' aria-label='repost this post'><FiRepeat color='white' size={20} /></IconButton>
                     <h5>0</h5>
                 </span>
-                <span className='spanSection'>
+                <Link href={`/note/${info._id}`} className='spanSection'>
                     <IconButton color='info' aria-label='comment this post'><FiMessageCircle color='white' size={20} /></IconButton>
                     <h5>{numberFormat(info.replyCount as string || '0')}</h5>
-                </span>
+                </Link>
                 <span className='spanSection'>
                     <IconButton aria-label='comment this post'><FiMoreVertical size={20} /></IconButton>
                 </span>
