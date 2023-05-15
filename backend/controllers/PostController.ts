@@ -104,7 +104,7 @@ export default class PostController {
         if (userId) {
             const reply = await new postModel({
                 postedBy: user,
-                content: req.body.content,
+                content: req.body.content || '',
                 type: 'reply'
             })
             reply.save()

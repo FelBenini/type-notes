@@ -78,7 +78,7 @@ const PostPage = ({ data, status }: { data: any, status: Number }) => {
                         </span>
                     </span>
                 </div>
-                <Comment />
+                <Comment id={data._id as string}/>
                 <Replies id={data._id as string}/>
             </section>
             <Aside />
