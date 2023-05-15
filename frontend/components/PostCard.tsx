@@ -23,7 +23,7 @@ const PostCard = ({ info }: { info: any }) => {
         axios.put(`${process.env.NEXT_PUBLIC_API_URL}/post/like/${info._id}`, {}, { headers: { authorization: token } })
     }
     return (
-        <Link href={`/note/${info._id}`} className='postCard'>
+        <div className='postCard'>
             <Link href={`/user/${info.postedBy.username}`} className='userTip'>
                 <span className='profilePic'></span>
                 <h4>{info.postedBy.displayName}</h4>
@@ -31,7 +31,7 @@ const PostCard = ({ info }: { info: any }) => {
                 <p>●</p>
                 <p>{format(info.createdAt)}</p>
             </Link>
-            <p>{info.content}</p>
+            <Link href={`/note/${info._id}`} className="content">{info.content}</Link>
             <span className='postToolbar'>
                 <span className='spanSection'>
                     <IconButton color='warning' onClick={likeThisPost} aria-label='like this post'>{!likeCount.liked ? <BsHeart color='white' size={20} /> : <BsFillHeartFill color='#D81E5B' size={20} />}</IconButton>
@@ -49,7 +49,7 @@ const PostCard = ({ info }: { info: any }) => {
                     <IconButton aria-label='comment this post'><FiMoreVertical size={20} /></IconButton>
                 </span>
             </span>
-        </Link>
+        </div>
     )
 }
 
