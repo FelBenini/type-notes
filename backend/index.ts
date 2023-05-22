@@ -51,6 +51,7 @@ app.put('/post/like/:id', middlewareAuth, PostController.likeAPost)
 app.post('/reply/:id', middlewareAuth, PostController.commentAPost)
 app.get('/replies/:id', PostController.getReplies)
 app.put('/follow/:id', middlewareAuth, UserController.followAnUser)
+app.get('/user/:id/likes', PostController.getPostsLikedByAnUser)
 
 app.listen(PORT, () => {
     console.log(`Server initialized at https://localhost:${PORT}`)

@@ -134,4 +134,10 @@ export default class PostController {
         }
         res.status(404).json({ 'message': 'Post was not found' })
     }
+
+    static getPostsLikedByAnUser = async (req: Request, res: Response) => {
+        const { id } = req.params
+        const posts = await postModel.find({likedBy: id})
+        res.json(posts)
+    }
 }
