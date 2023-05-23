@@ -62,9 +62,9 @@ const UserPosts = ({ username, type }: { username: string | string[] | undefined
     } else {
         return (
             <section id='postsSection'>
-              <Skeleton variant='rounded' height={210} className='postCard'/>
-              <Skeleton variant='rounded' height={210} className='postCard'/>
-              <Skeleton variant='rounded' height={210} className='postCard'/>
+              <Skeleton variant='rounded' height={180} className='postCard' animation='wave'/>
+              <Skeleton variant='rounded' height={180} className='postCard' animation='wave'/>
+              <Skeleton variant='rounded' height={180} className='postCard' animation='wave'/>
             </section>
         )
     }
