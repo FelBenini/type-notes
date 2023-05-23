@@ -156,6 +156,7 @@ export default class PostController {
         }
       });
     }
-    res.json({posts: posts})
+    const count = await postModel.find({ likedBy: user?._id }).count()
+    res.json({postsCount: count, posts: posts})
   }
 }

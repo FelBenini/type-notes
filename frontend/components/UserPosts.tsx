@@ -31,8 +31,8 @@ const UserPosts = ({ username, type }: { username: string | string[] | undefined
     })
     setPostLimit(data.postsCount)
     setPostData(data.posts)
-    setPage(page + 1)
-    setPostsCount(postsCount + 15)
+    setPage(1)
+    setPostsCount(15)
     setLoading(false)
   }
 
