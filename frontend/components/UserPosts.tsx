@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import PostCard from './PostCard'
 import { Button } from '@mui/material'
 import { Cookies } from 'react-cookie'
+import { Skeleton } from '@mui/material'
 
 const cookie = new Cookies()
 
@@ -15,6 +16,7 @@ const UserPosts = ({ username, type }: { username: string | string[] | undefined
     const [page, setPage] = useState(0)
 
     const fetchData = async (username: string | string[] | undefined, type: string) => {
+        setLoading(true)
         const token = cookie.get('AUTHJWTKEY')
         const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/user/post/${username}?page=0&type=${type}`, {
             headers: {
@@ -59,7 +61,11 @@ const UserPosts = ({ username, type }: { username: string | string[] | undefined
         )
     } else {
         return (
-            <></>
+            <section id='postsSection'>
+              <Skeleton variant='rounded' height={210} className='postCard'/>
+              <Skeleton variant='rounded' height={210} className='postCard'/>
+              <Skeleton variant='rounded' height={210} className='postCard'/>
+            </section>
         )
     }
 
