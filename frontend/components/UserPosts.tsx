@@ -7,29 +7,34 @@ import { Cookies } from 'react-cookie'
 
 const cookie = new Cookies()
 
-const UserPosts = ({ username }: { username: string | string[] | undefined }) => {
+const UserPosts = ({ username, type }: { username: string | string[] | undefined, type: string }) => {
     const [loading, setLoading] = useState(true)
     const [postData, setPostData] = useState<any>([])
     const [postsCount, setPostsCount] = useState(0)
     const [postLimit, setPostLimit] = useState(0)
     const [page, setPage] = useState(0)
 
-    const fetchData = async (username: string | string[] | undefined) => {
+    const fetchData = async (username: string | string[] | undefined, type: string) => {
         const token = cookie.get('AUTHJWTKEY')
-        const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/user/post/${username}?page=${page}`, {
+        const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/user/post/${username}?page=0&type=${type}`, {
             headers: {
                 'authorization': token
             }
         })
         setPostLimit(data.postsCount)
-        setPostData([...postData, ...data.posts])
+        setPostData(data.posts)
         setPage(page + 1)
         setPostsCount(postsCount + 15)
         setLoading(false)
     }
 
     const fetchMore = async () => {
-        const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/user/post/${username}?page=${page}`)
+      const token = cookie.get('AUTHJWTKEY')
+        const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/user/post/${username}?page=${page}`, {
+          headers: {
+              'authorization': token
+          }
+      })
         setPostData([...postData, ...data.posts])
         setPage(page + 1)
         setPostsCount(postsCount + 15)
@@ -37,8 +42,8 @@ const UserPosts = ({ username }: { username: string | string[] | undefined }) =>
     }
 
     useEffect(() => {
-        fetchData(username) // eslint-disable-next-line
-    }, [username])
+      fetchData(username, type) // eslint-disable-next-line
+    }, [username, type])
 
     if (!loading) {
         const mappedPosts = postData.map((post: any, index: any) => {

@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Open_Sans } from "next/font/google";
 import { FaRegCalendar, FaUserPlus } from "react-icons/fa";
-import { Button } from "@mui/material";
+import { Button, Tab, Tabs } from "@mui/material";
 import UserPosts from "./UserPosts";
 import { Cookies } from "react-cookie";
 import { FiFeather } from "react-icons/fi";
@@ -26,6 +26,7 @@ export interface IUserInfo {
 }
 
 const UserCard = ({ username }: { username: string | undefined }) => {
+  const [tabValue, setTabValue] = useState("post")
   const [userNameSession, setUserNameSession] = useState("");
   const [userInfo, setUserInfo] = useState<IUserInfo | undefined>();
   const [loading, setLoading] = useState(true);
@@ -131,8 +132,13 @@ const UserCard = ({ username }: { username: string | undefined }) => {
               following
             </p>
           </span>
+          <Tabs value={tabValue} onChange={(event: React.SyntheticEvent, newValue: string) => {setTabValue(newValue)}}>
+            <Tab label='Notes' value='post' sx={{margin: '0 auto'}}/>
+            <Tab label='Notes and Replies' value='all' sx={{margin: '0 auto'}}/>
+            <Tab label='Liked Notes' value='liked' sx={{margin: '0 auto'}}/>
+          </Tabs>
         </div>
-        <UserPosts username={username} />
+        <UserPosts username={username} type={tabValue} />
       </div>
     );
   } else {
