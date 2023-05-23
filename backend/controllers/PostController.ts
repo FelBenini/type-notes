@@ -138,8 +138,14 @@ export default class PostController {
   static getPostsLikedByAnUser = async (req: Request, res: Response) => {
     const { id } = req.params
     const userReq = decodeJwtUsername(req.headers.authorization) || undefined
-    const posts = await postModel.find({ likedBy: id })
+    let page: number | string = req.query.page as string || 0 as number
+    const limit: number = parseInt(req.query.limit as string) as number || 15 as number
+    const user = await userModel.findOne({username: id})
+    const posts = await postModel.find({ likedBy: user?._id })
       .populate('likedBy', '-_id -password -email -__v')
+      .limit(limit as number * 1)
+      .skip((page as number) * limit as number)
+      .sort({ createdAt: -1 })
       .lean()
     if (userReq) {
       posts.forEach((post: any) => {
@@ -150,6 +156,6 @@ export default class PostController {
         }
       });
     }
-    res.json(posts)
+    res.json({posts: posts})
   }
 }
