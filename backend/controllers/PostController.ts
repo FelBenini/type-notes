@@ -143,6 +143,7 @@ export default class PostController {
     const user = await userModel.findOne({username: id})
     const posts = await postModel.find({ likedBy: user?._id })
       .populate('likedBy', '-_id -password -email -__v')
+      .populate('postedBy', '-_id -password -email -__v')
       .limit(limit as number * 1)
       .skip((page as number) * limit as number)
       .sort({ createdAt: -1 })
